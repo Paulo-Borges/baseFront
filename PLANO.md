@@ -369,7 +369,65 @@ export class ContatoService {
 
 ---
 
-## Passo 11 - Criar o formulario standalone
+## Passo 11 - Criar o template `contato.html`
+
+Crie o arquivo `src/app/contato.html` com o template do formulario:
+
+```html
+<main class="contato-page">
+  <section class="contato-card" aria-labelledby="contato-titulo">
+    <header>
+      <p class="eyebrow">Fale conosco</p>
+      <h1 id="contato-titulo">Envie uma mensagem</h1>
+      <p>Preencha os campos abaixo. Nossa equipe entrara em contato em breve.</p>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+      <div class="field">
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" formControlName="nome" autocomplete="name" required />
+        @if (form.controls.nome.touched && form.controls.nome.invalid) {
+        <small class="error">Informe seu nome.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" formControlName="email" autocomplete="email" required />
+        @if (form.controls.email.touched && form.controls.email.hasError('required')) {
+        <small class="error">Informe seu e-mail.</small>
+        } @else if (form.controls.email.touched && form.controls.email.hasError('email')) {
+        <small class="error">Informe um e-mail valido.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="mensagem">Mensagem</label>
+        <textarea id="mensagem" formControlName="mensagem" rows="6" required></textarea>
+        @if (form.controls.mensagem.touched && form.controls.mensagem.invalid) {
+        <small class="error">Informe uma mensagem.</small>
+        }
+      </div>
+
+      <button type="submit" [disabled]="form.invalid">Enviar mensagem</button>
+    </form>
+  </section>
+</main>
+```
+
+O atributo `[formGroup]="form"` conecta o HTML ao formulario criado no componente TypeScript. Cada `formControlName` deve ter o mesmo nome de um controle definido no `FormBuilder`: `nome`, `email` e `mensagem`.
+
+`(ngSubmit)="enviar()"` chama o metodo do componente quando o usuario envia o formulario. Os blocos `@if` usam a sintaxe moderna de controle de fluxo do Angular 17+ para mostrar mensagens de validacao somente depois que o campo foi visitado.
+
+O atributo `novalidate` deixa a validacao sob responsabilidade do Reactive Forms. Os atributos `required`, `type="email"` e `autocomplete` continuam ajudando acessibilidade, teclado e preenchimento automatico.
+
+O botao fica desabilitado enquanto o formulario e invalido. No componente, `markAllAsTouched()` continua sendo importante para revelar os erros caso o envio seja acionado por outro fluxo.
+
+O componente tambem pode receber um arquivo `contato.css` pelo `styleUrls` ou pelo `styleUrl` do decorator para estilizar `.contato-page`, `.contato-card`, `.field`, `.error` e o botao.
+
+---
+
+## Passo 12 - Criar o formulario standalone
 
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -410,7 +468,7 @@ O `ReactiveFormsModule` habilita o formulario reativo. `NonNullableFormBuilder` 
 
 ---
 
-## Passo 12 - Configurar a rota e a tela
+## Passo 13 - Configurar a rota e a tela
 
 Em `app.routes.ts`:
 

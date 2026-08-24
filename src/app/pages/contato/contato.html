@@ -1,0 +1,39 @@
+<main class="">
+  <section class="" aria-labelledby="contato-titulo">
+    <header>
+      <p class="">Fale conosco</p>
+      <h1>Envie uma mensagem</h1>
+      <p>Preencha os campos abaixo. Nossa equipe entrara em contato em breve.</p>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+      <div class="">
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" formControlName="nome" autocomplete="name" required />
+        @if (form.controls.nome.touched && form.controls.nome.invalid) {
+          <small class="error">Informe seu nome.</small>
+        }
+      </div>
+
+      <div class="">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" formControlName="email" autocomplete="email" required />
+        @if (form.controls.email.touched && form.controls.email.hasError('required')) {
+          <small class="error">Informe seu e-mail.</small>
+        } @else if (form.controls.email.touched && form.controls.email.hasError('email')) {
+          <small class="error">Informe um e-mail valido.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="mensagem">Mensagem</label>
+        <textarea id="mensagem" formControlName="mensagem" rows="6" required></textarea>
+        @if (form.controls.mensagem.touched && form.controls.mensagem.invalid) {
+          <small class="error">Informe uma mensagem.</small>
+        }
+      </div>
+
+      <button type="submit" [disabled]="form.invalid">Enviar mensagem</button>
+    </form>
+  </section>
+</main>
