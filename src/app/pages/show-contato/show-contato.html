@@ -1,22 +1,24 @@
 @if (showContato$ | async; as contatos) {
-  <h2>Lista de Contatos</h2>
+  <div class="bg-white p-6 rounded-lg">
+    <h2 class="font-bold mb-8">Lista de Contatos:</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Mensagem</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (showContato of contatos; track showContato.id) {
-        <tr>
-          <td>{{ showContato.nome }}</td>
-          <td>{{ showContato.email }}</td>
-          <td>{{ showContato.mensagem }}</td>
+    <table class="">
+      <thead>
+        <tr class="border">
+          <th class="">Nome</th>
+          <th class="">Email</th>
+          <th class="">Mensagem</th>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @for (showContato of contatos; track showContato.id) {
+          <tr class="border">
+            <td class="border px-4">{{ showContato.nome }}</td>
+            <td class="border px-4">{{ showContato.email }}</td>
+            <td class="border px-4">{{ showContato.mensagem }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 }
