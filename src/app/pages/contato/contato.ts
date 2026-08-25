@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { ContatoService } from '../../contato-service';
 
 @Component({
   selector: 'app-contato',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './contato.html',
   styleUrl: './contato.css',
 })
