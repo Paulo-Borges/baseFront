@@ -53,14 +53,20 @@
         }
       </div>
 
-      <button
-        [ngClass]="form.valid ? 'text-black opacity-100 hover:text-white' : 'text-white opacity-50'"
-        class="bg-red-400 rounded p-2 mt-4"
-        type="submit"
-        [disabled]="form.invalid"
-      >
-        Enviar mensagem
-      </button>
+      <div class="flex justify-between">
+        <button
+          [ngClass]="
+            form.valid ? 'text-black opacity-100 hover:text-white' : 'text-white opacity-50'
+          "
+          class="bg-red-400 rounded p-2 mt-4"
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          Enviar mensagem
+        </button>
+
+        <button type="button" (click)="show()">Show</button>
+      </div>
     </form>
   </section>
 </main>

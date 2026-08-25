@@ -1,0 +1,22 @@
+@if (showContato$ | async; as contatos) {
+  <h2>Lista de Contatos</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Mensagem</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (showContato of contatos; track showContato.id) {
+        <tr>
+          <td>{{ showContato.nome }}</td>
+          <td>{{ showContato.email }}</td>
+          <td>{{ showContato.mensagem }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

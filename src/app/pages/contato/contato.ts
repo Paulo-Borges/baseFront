@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ContatoService } from '../../contato-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contato',
@@ -12,6 +13,8 @@ import { ContatoService } from '../../contato-service';
 export class Contato {
   private readonly formBuilder = inject(NonNullableFormBuilder);
   private readonly contatoService = inject(ContatoService);
+
+  private readonly router = inject(Router);
 
   readonly form = this.formBuilder.group({
     nome: ['', Validators.required],
@@ -29,5 +32,9 @@ export class Contato {
       next: () => this.form.reset(),
       error: (erro) => console.error('Erro ao salvar contato:', erro),
     });
+  }
+
+  show(): void {
+    this.router.navigate(['/showContato']);
   }
 }
