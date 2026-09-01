@@ -1,0 +1,39 @@
+@if (showPessoa$ | async; as pessoas) {
+  @if (pessoas.length > 0) {
+    <div class="bg-white p-6 rounded min-w-2xl flex flex-col items-center">
+      <h2 class="font-bold mb-8">Lista de Pessoas:</h2>
+
+      <table class="min-w-full">
+        <thead>
+          <tr class="border">
+            <th class="">Nome</th>
+            <th class="">Email</th>
+            <th class="">CPF</th>
+            <th class="">Telefone</th>
+            <th class="">Estado Civil</th>
+            <th class="">Profissão</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (showPessoa of pessoas; track $index) {
+            <tr class="border">
+              <td class="border px-4">{{ showPessoa.nome }}</td>
+              <td class="border px-4">{{ showPessoa.email }}</td>
+              <td class="border px-4">{{ showPessoa.cpf }}</td>
+              <td class="border px-4">{{ showPessoa.telefone }}</td>
+              <td class="border px-4">{{ showPessoa.estadoCivil }}</td>
+              <td class="border px-4">{{ showPessoa.profissao }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <button class="mt-4 bg-amber-400 hover:bg-amber-200 px-2 rounded" (click)="inicio()">
+        Início
+      </button>
+    </div>
+  } @else {
+    <p>Aguardando dados.....</p>
+  }
+} @else {
+  <p>Nenhuma pessoa encontrada.</p>
+}

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ContatoService } from '../../contato-service';
+import { ContatoService } from '../../services/contato-service';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ContatoService } from '../../contato-service';
+import { ContatoService } from '../../services/contato-service';
 import { ContatoModel } from '../../models/contatoModel';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
@@ -18,6 +18,6 @@ export class ShowContato {
   showContato$: Observable<ContatoModel[]> = this.contatoService.getContatos();
 
   inicio(): void {
-    this.router.navigate(['/contato']);
+    this.router.navigate(['/showPessoa']);
   }
 }
