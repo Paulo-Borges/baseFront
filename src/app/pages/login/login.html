@@ -1,1 +1,45 @@
+<div class="login-container">
+  <h2>Acessar o Sistema</h2>
 
+  @if (error) {
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+  }
+
+  <form (ngSubmit)="login()">
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="email"
+        [disabled]="isLoading"
+        placeholder="seu.email@exemplo.com"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="password"
+        [disabled]="isLoading"
+        placeholder="••••••••"
+        required
+      />
+    </div>
+
+    <button type="submit" [disabled]="isLoading">
+      @if (isLoading) {
+        <span>Entrando...</span>
+      } @else {
+        <span>Entrar</span>
+      }
+    </button>
+  </form>
+</div>

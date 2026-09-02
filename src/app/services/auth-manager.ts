@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
 import { IUser } from '../models/IUser';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthManager {
-  private readonly apiUrl = 'http://localhost:3000/api/login';
+  private readonly apiUrl = 'http://localhost:7277/api';
 
   private currentUser = signal<IUser | null>(null);
   private token = signal<string | null>(null);
@@ -25,15 +25,17 @@ export class AuthManager {
     this.loadUserFromLocalStorage();
   }
 
-  login(email: string): Observable<{ token: string; user: IUser }> {
-    return this.http.post<{ token: string; user: IUser }>(`${this.apiUrl}/login`, { email }).pipe(
-      tap((response) => {
-        this.currentUser.set(response.user);
-        this.token.set(response.token);
-        localStorage.setItem('currentUser', JSON.stringify(response.user));
-        localStorage.setItem('token', response.token);
-      }),
-    );
+  login(email: string, password: string): Observable<{ token: string; user: IUser }> {
+    return this.http
+      .post<{ token: string; user: IUser }>(`${this.apiUrl}/login`, { email, password })
+      .pipe(
+        tap((response) => {
+          this.currentUser.set(response.user);
+          this.token.set(response.token);
+          localStorage.setItem('currentUser', JSON.stringify(response.user));
+          localStorage.setItem('token', response.token);
+        }),
+      );
   }
 
   logout(): void {
@@ -53,9 +55,13 @@ export class AuthManager {
     const token = localStorage.getItem('token');
 
     if (userJson && token) {
-      const user: IUser = JSON.parse(userJson);
-      this.currentUser.set(user);
-      this.token.set(token);
+      try {
+        const user: IUser = JSON.parse(userJson);
+        this.currentUser.set(user);
+        this.token.set(token);
+      } catch {
+        this.logout();
+      }
     }
   }
 }

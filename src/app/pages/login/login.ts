@@ -12,21 +12,36 @@ import { AuthManager } from '../../services/auth-manager';
 export class Login {
   email = '';
   error = '';
+  password = '';
   isLoading = false;
 
   private readonly _authManager = inject(AuthManager);
   private readonly _router = inject(Router);
 
   login(): void {
+    if (!this.email || !this.password) {
+      this.error = 'Preencha todos os campos.';
+      return;
+    }
+
     this.isLoading = true;
     this.error = '';
-    this._authManager.login(this.email).subscribe({
-      next: () => {
-        this._router.navigate(['/home']);
-      },
-      error: () => {
-        this.error = 'Email inválido';
+
+    this._authManager.login(this.email, this.password).subscribe({
+      next: (response) => {
         this.isLoading = false;
+
+        // Redireciona com base no perfil do usuário retornado pelo backend .NET
+        if (response.user.role === 'admin') {
+          this._router.navigate(['/showPessoa']);
+        } else {
+          this._router.navigate(['/contato']);
+        }
+      },
+      error: (err) => {
+        this.isLoading = false;
+        // Captura a mensagem tratada enviada pela API .NET (ex: 401 Unauthorized)
+        this.error = err.error?.message || 'E-mail ou senha inválidos.';
       },
     });
   }
