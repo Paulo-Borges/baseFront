@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthManager {
-  private readonly apiUrl = 'http://localhost:7277/api';
+  private readonly apiUrl = 'https://localhost:7277/api/auth';
 
   private currentUser = signal<IUser | null>(null);
   private token = signal<string | null>(null);
