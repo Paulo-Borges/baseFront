@@ -37,6 +37,13 @@ export class Login {
         } else {
           this._router.navigate(['/contato']);
         }
+
+        // Redireciona com base no perfil do usuário retornado pelo backend .NET
+        if (response.user.role === 'user') {
+          this._router.navigate(['/contato']);
+        } else {
+          this._router.navigate(['/showPessoa']);
+        }
       },
       error: (err) => {
         this.isLoading = false;
