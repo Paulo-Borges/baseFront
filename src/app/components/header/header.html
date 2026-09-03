@@ -1,11 +1,22 @@
-<nav class="flex justify-between items-center bg-gray-800 text-white p-4 min-w-2xl">
-  <h2>{{ title() }}</h2>
-  <div>
-    <a
-      href="https://www.linkedin.com/in/paulo-borges-de-almeida-b543b3242/"
-      class="hover:text-amber-500"
-      target="_blank"
-      >Linkedin</a
-    >
-  </div>
-</nav>
+<header>
+  <nav class="flex justify-between items-center bg-gray-800 text-white p-4 min-w-2xl">
+    <h2>{{ title() }}</h2>
+    <div class="hidden sm:flex">
+      <ul class="flex gap-8">
+        <li class="text-gray-600 hover:text-amber-500">
+          <a href="https://www.linkedin.com/in/paulo-borges-de-almeida-b543b3242/" target="_blank"
+            >Linkedin</a
+          >
+        </li>
+
+        <li class="text-gray-600 hover:text-amber-500">
+          <a href="https://github.com/Paulo-Borges" target="_blank">GITHUB</a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <span class="text-amber-900 border p-1 text-xs hover:text-amber-300"> Open to Work </span>
+    </div>
+  </nav>
+</header>
