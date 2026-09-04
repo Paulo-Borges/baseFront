@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { provideRouter, RouterLink } from '@angular/router';
 import { NotFound } from './not-found';
+import { By } from '@angular/platform-browser';
 
 describe('Not Found Component', () => {
   let component: NotFound;
@@ -37,5 +38,14 @@ describe('Not Found Component', () => {
     const html: HTMLElement = fixture.nativeElement;
     const span404 = html.querySelector('[data-testid="not-found-404"]');
     expect(span404?.textContent).toBe('404');
+  });
+
+  it('deve encontrar o link usando o debugElement', () => {
+    const debugDom = fixture.debugElement;
+    const linkSDebugElement = debugDom.query(By.directive(RouterLink));
+    expect(linkSDebugElement).toBeTruthy();
+
+    const htmlA: HTMLAnchorElement = linkSDebugElement.nativeElement;
+    expect(htmlA.getAttribute('href')).toBe('/');
   });
 });
