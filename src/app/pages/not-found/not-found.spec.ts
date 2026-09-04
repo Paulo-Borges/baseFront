@@ -26,4 +26,10 @@ describe('Not Found Component', () => {
     const tituloH1 = html.querySelector('h1');
     expect(tituloH1?.textContent).toBe('Página não encontrada');
   });
+
+  it('deve ter um link, redirecionando pra pagina Inicial (/)', () => {
+    const html: HTMLElement = fixture.nativeElement;
+    const link = html.querySelector('a');
+    expect(link?.getAttribute('href')).toBe('/');
+  });
 });
