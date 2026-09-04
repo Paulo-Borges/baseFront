@@ -32,4 +32,10 @@ describe('Not Found Component', () => {
     const link = html.querySelector('a');
     expect(link?.getAttribute('href')).toBe('/');
   });
+
+  it('deve exibir 404', () => {
+    const html: HTMLElement = fixture.nativeElement;
+    const span404 = html.querySelector('[data-testid="not-found-404"]');
+    expect(span404?.textContent).toBe('404');
+  });
 });
