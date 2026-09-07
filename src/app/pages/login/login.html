@@ -7,11 +7,16 @@
     </div>
   }
 
-  <form (ngSubmit)="login()" class="flex flex-col p-4 gap-4 items-center justify-center w-full">
+  <form
+    (ngSubmit)="login()"
+    data-testid="login-form"
+    class="flex flex-col p-4 gap-4 items-center justify-center w-full"
+  >
     <div class="flex flex-col gap-2 w-lg">
       <label for="email">E-mail</label>
       <input
         type="email"
+        data-testid="email-input"
         id="email"
         name="email"
         [(ngModel)]="email"

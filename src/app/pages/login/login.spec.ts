@@ -1,15 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Login } from './login';
 import { of } from 'rxjs';
 import { AuthManager } from '../../services/auth-manager';
 import { Router } from '@angular/router';
+import { By } from '@angular/platform-browser';
 
 describe('Login', () => {
   let component: Login;
   let fixture: ComponentFixture<Login>;
 
   const authManagerMock = {
-    login: vi.fn().mockReturnValue(of({ token: '123', user: { nome: 'Teste' } })),
+    login: vi.fn(),
     logout: vi.fn(),
     isAuthenticated: vi.fn().mockReturnValue(of(false)),
   };
@@ -19,6 +20,12 @@ describe('Login', () => {
   };
 
   beforeEach(async () => {
+    vi.resetAllMocks();
+
+    // Reinstancia os retornos padrão para cada teste
+    authManagerMock.login.mockReturnValue(of({ token: '123', user: { nome: 'Teste' } }));
+    authManagerMock.isAuthenticated.mockReturnValue(of(false));
+
     await TestBed.configureTestingModule({
       imports: [Login],
       providers: [
@@ -34,5 +41,17 @@ describe('Login', () => {
 
   it('deve criar um componente com sucesso', () => {
     expect(component).toBeTruthy();
+  });
+  it('deve atualizar o email via ngModel quando o usuário digitar no input', async () => {
+    const InputEL: HTMLInputElement = fixture.nativeElement.querySelector(
+      '[data-testid="email-input"]',
+    );
+
+    const email = 'aluno@teste.com';
+    InputEL.value = email;
+    InputEL.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(component.email).toBe(email);
   });
 });
