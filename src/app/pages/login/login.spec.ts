@@ -54,4 +54,28 @@ describe('Login', () => {
     await fixture.whenStable();
     expect(component.email).toBe(email);
   });
+
+  it('deve renderizar a mensagem de erro no HTML quando a variável error estiver preenchida', () => {
+    const errorMessagem = 'Credencias Invalidas';
+
+    component.error = errorMessagem;
+    fixture.detectChanges();
+
+    const errorEl: HTMLElement = fixture.nativeElement.querySelector(
+      '[data-testid="error-message"]',
+    );
+    expect(errorEl).toBeTruthy();
+    expect(errorEl.textContent).toContain(errorMessagem);
+  });
+
+  it('deve desabilitar o botão e alterar o texto enquanto estiver carregando (isLoading)', () => {
+    component.isLoading = true;
+    fixture.detectChanges();
+
+    const submitButton: HTMLButtonElement = fixture.nativeElement.querySelector(
+      '[data-testid="submit-button"]',
+    );
+    expect(submitButton.disabled).toBe(true);
+    expect(submitButton.textContent).toContain('Entrando...');
+  });
 });
