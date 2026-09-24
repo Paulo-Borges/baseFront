@@ -14,7 +14,11 @@ export const routes: Routes = [
     component: Login,
     title: 'Login',
   },
-  { path: 'contato', canActivate: [authGuard], component: Contato },
+  {
+    path: 'contato',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/contato/contato').then((m) => m.Contato),
+  },
   { path: 'showContato', canActivate: [roleGuard('admin')], component: ShowContato },
   { path: 'showPessoa', canActivate: [roleGuard('admin')], component: ShowPessoa },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
