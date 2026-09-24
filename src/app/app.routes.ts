@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { Contato } from './pages/contato/contato';
 import { ShowContato } from './pages/show-contato/show-contato';
 import { ShowPessoa } from './pages/show-pessoa/show-pessoa';
 import { roleGuard } from './guards/role-guard';

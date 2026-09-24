@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { IUser } from '../models/IUser';
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthManager {
-  private readonly apiUrl = 'https://localhost:7277/api/auth';
+  private readonly apiUrl = `${environment.ApiUrl}/auth`;
 
   private currentUser = signal<IUser | null>(null);
   private token = signal<string | null>(null);
